@@ -1,0 +1,14 @@
+#cloud-config
+
+# vim: syntax=yaml
+
+# Upgrade the instance on first boot
+# (ie run apt-get upgrade)
+#
+
+manage-resolv-conf: true
+
+resolv_conf:
+  nameservers: ['8.8.4.4', '8.8.8.8']
+
+#package_upgrade: true
