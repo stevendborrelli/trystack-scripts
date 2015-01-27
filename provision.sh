@@ -106,3 +106,10 @@ function main {
   sleep 5 && allocate_ips
   sleep 60 && resolv_conf
 }
+
+function inventory {
+  floating_ips=( $(nova floating-ip-list | grep external | awk '{print $2}') )
+  for i in `seq 1 ${NUM_HOSTS}`; do
+    echo node1${i} ansible_ssh_host=${floating_ips[i]} ansible_ssh_user=centos
+  done
+}
