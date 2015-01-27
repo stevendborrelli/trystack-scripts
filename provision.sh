@@ -10,7 +10,7 @@
 
 NUM_HOSTS=3
 FLAVOR=3   #m1.medium (3.75GB)
-IMAGE=2e4c08a9-0ecd-4541-8a45-838479a88552 # CentOS 7 x86_64   
+IMAGE=2e4c08a9-0ecd-4541-8a45-838479a88552 # CentOS 7 x86_64
 SECURITY_GROUP=default
 KEY_NAME=ansible_key
 SSH_PUBKEY=~/.ssh/id_rsa.pub
@@ -28,7 +28,7 @@ function _create_network {
 function create_network {
   nova network-show network1 || _create_network
 }
- 
+
 function _create_router {
   neutron router-create router1
   neutron router-gateway-set router1 external
@@ -36,7 +36,7 @@ function _create_router {
 }
 
 function create_router {
-  neutron router-show router1 || _create_router  
+  neutron router-show router1 || _create_router
 }
 
 function create_floating_ips {
@@ -65,7 +65,7 @@ function default_sec_group {
 }
 
 function boot_instances {
-  for i in `seq 1 ${NUM_HOSTS}`; do 
+  for i in `seq 1 ${NUM_HOSTS}`; do
     nova boot --flavor ${FLAVOR} \
               --key_name ${KEY_NAME} \
               --image ${IMAGE} \
@@ -90,7 +90,7 @@ function resolv_conf {
   for i in ${floating_ips[*]}; do
     echo -e "nameserver 8.8.8.8" > resolv.conf.tmp
     scp -o StrictHostKeyChecking=no resolv.conf.tmp centos@${i}:/tmp/resolv.conf
-    ssh -o StrictHostKeyChecking=no -t centos@${i} "sudo cp /tmp/resolv.conf /etc/resolv.conf" 
+    ssh -o StrictHostKeyChecking=no -t centos@${i} "sudo cp /tmp/resolv.conf /etc/resolv.conf"
     rm -f resolv.conf.tmp
   done
 }
