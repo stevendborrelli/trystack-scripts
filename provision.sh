@@ -76,10 +76,10 @@ function boot_instances {
 }
 
 function allocate_ips {
-  floating_ips=( skip $(nova floating-ip-list | grep external | awk '{print $2}') )
-  for i in `seq 1 ${NUM_HOSTS}`; do 
+  floating_ips=( $(nova floating-ip-list | grep external | awk '{print $2}') )
+  for i in `seq 1 ${NUM_HOSTS}`; do
     echo "allocating ${floating_ips[${i}]} to node1${i}"
-    nova floating-ip-associate node1${i} ${floating_ips[${i}]} 
+    nova floating-ip-associate node1${i} ${floating_ips[${i}]}
   done
 }
 
