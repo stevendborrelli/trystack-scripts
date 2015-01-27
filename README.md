@@ -68,3 +68,4 @@ Functions:
 	
 	main: run all functions
 
+        inventory: generate ansible inventory
